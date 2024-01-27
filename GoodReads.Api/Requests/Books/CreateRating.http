@@ -1,0 +1,8 @@
+# Post a new rating;
+POST http://localhost:5218/api/books/5/ratings
+Content-Type: application/json
+
+{
+  "description": "Mediano.",
+  "rate": 2
+}

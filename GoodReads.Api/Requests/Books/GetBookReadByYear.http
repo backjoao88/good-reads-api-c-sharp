@@ -1,0 +1,4 @@
+# Retrieve books read by year and genre
+GET http://localhost:5218/api/books/2024/year
+Accept: application/json
+###

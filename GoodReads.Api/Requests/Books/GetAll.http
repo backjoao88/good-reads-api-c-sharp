@@ -1,0 +1,4 @@
+# Retrieve all books request.
+GET http://localhost:5218/api/books
+Accept: application/json
+###

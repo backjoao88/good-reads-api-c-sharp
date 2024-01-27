@@ -1,0 +1,9 @@
+# Save a new book request.
+POST http://localhost:5218/api/books
+Content-Type: application/json
+
+{
+  "title": "O mundo assombrado pelos demônios",
+  "description": "Assombrado com as explicações pseudocientíficas e místicas que ocupam cada vez mais os espaços dos meios de comunicação.",
+  "isbn": "853590834P"
+}
