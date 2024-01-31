@@ -1,0 +1,3 @@
+﻿# Retrieve books from external source
+GET http://localhost:5218/api/books/external?query=123
+Accept: application/json

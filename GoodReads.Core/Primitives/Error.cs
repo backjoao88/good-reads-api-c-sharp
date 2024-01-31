@@ -25,8 +25,9 @@ public static class DomainErrors
     {
         public static Error RateNotInRangeError =
             new("Rate.NotInRangeError", "The book rate is not within the correct range.");
-        public static Error BookNotFoundError => new("Book.NotFoundError", "The book was not found.");
         public static Error IsbnNotUniqueError =>
             new("Book.IsbnNotUniqueError", "The ISBN informed is not unique in the database.");
+        public static Error BookNotFoundError => new("Book.NotFoundError", "The book was not found.");
+        public static Error BookCoverEmptyError => new("BookCover.EmptyError", "The book cover is empty.");
     }
 }

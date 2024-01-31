@@ -1,5 +1,5 @@
 # Post a new rating;
-POST http://localhost:5218/api/books/5/ratings
+POST http://localhost:5218/api/books/1/ratings
 Content-Type: application/json
 
 {

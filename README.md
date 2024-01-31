@@ -42,13 +42,11 @@ Ele deve permitir o cadastro validado de livros, avaliações e usuário.
 - [x] ISBN deve ser único ao cadastrar livro;
 - [x] Nota deve ser de 1 a 5 ao cadastrar avaliação;
 - [x] A nota média do livro deve ser recalculada a cada cadastro de avaliação;
-- [ ] O sistema deve gerar um relatório sobre a quantidade de livros lidos naquele ano (+);
-- [ ] O sistema deve permitir o usuário subir um arquivo com a capa do livro (+);
-    - [ ] Salvar em memória
-    - [ ] Salvar em disco
-- [ ] O sistema deve permitir o usuário baixar um arquivo com a capa do livro (+);
-    - [ ] Baixar da memória
-    - [ ] Baixar do disco
+- [x] O sistema deve gerar um relatório sobre a quantidade de livros lidos naquele ano (+);
+- [x] O sistema deve permitir o usuário subir um arquivo com a capa do livro (+);
+    - [x] Salvar em memória
+- [x] O sistema deve permitir o usuário baixar um arquivo com a capa do livro (+);
+    - [x] Baixar da memória
 - [ ] O sistema deve permitir consulta de livros em uma fonte externa (+);
     - [ ] Configurar por meio de uma classe de opções;
     - [ ] Criar o client com base no Google APIs;

@@ -29,7 +29,7 @@ public class GetBooksGenreReadByYearQueryHandler : IRequestHandler<GetBooksGenre
             .Where(o => o.Registration.Year == reportYear)
             .Select(async o => await _unitOfWork.BookRepository.GetById(o.IdBook));
 
-        // needs to run sequentially
+        // Run sequentially
         List<Book?> allBooksWithRatingsInRequiredYear = new List<Book?>();
         foreach (var task in allBooksWithRatingsInRequiredYearTasks)
         {

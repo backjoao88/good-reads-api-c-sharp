@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoodReads.Api.Abstractions;
 
+/// <summary>
+/// Represents a generic API controller.
+/// </summary>
 public class ApiController : ControllerBase
 {
     [NonAction]

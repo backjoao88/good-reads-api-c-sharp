@@ -1,7 +1,10 @@
 ﻿using GoodReads.Api.Abstractions;
 using GoodReads.Application.Commands.Books.Create;
 using GoodReads.Application.Commands.Books.CreateRating;
+using GoodReads.Application.Commands.Books.UpdateCover;
+using GoodReads.Application.Queries.Books.DownloadCover;
 using GoodReads.Application.Queries.Books.GetAll;
+using GoodReads.Application.Queries.Books.GetBooksFromExternalSource;
 using GoodReads.Application.Queries.Books.GetBooksGenreReadByYear;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -72,4 +75,46 @@ public class BookController : ApiController
         var booksGenreReadByYear = await _mediator.Send(getBooksGenreReadByYear);
         return Ok(booksGenreReadByYear);
     }
+    
+    /// <summary>
+    /// Represents the endpoint for updating a book cover.
+    /// </summary>
+    /// <param name="idBook"></param>
+    /// <param name="formFileCollection"></param>
+    /// <returns></returns>
+    [HttpPut("{idBook}/cover/upload")]
+    public async Task<IActionResult> UploadCover(int idBook, IFormCollection formFileCollection)
+    {
+        var file = formFileCollection.Files[0];
+        var updateCoverCommand = new UploadCoverCommand(idBook, file.OpenReadStream());
+        var result = await _mediator.Send(updateCoverCommand);
+        return result.IsSuccess ? NoContent() : BadRequest(result.Error);
+    }
+
+    /// <summary>
+    /// Represents the endpoint for downlaod a book cover.
+    /// </summary>
+    /// <param name="idBook"></param>
+    /// <returns></returns>
+    [HttpGet("{idBook}/cover/download")]
+    public async Task<IActionResult> DownloadCover(int idBook)
+    {
+        var downloadCoverQuery = new DownloadCoverQuery(idBook);
+        var result = await _mediator.Send(downloadCoverQuery);
+        return result.IsSuccess ? File(result.Data.CoverStream, "image/jpg") : BadRequest(result.Error);
+    }
+
+    /// <summary>
+    /// Represents the endpoint for retrieving a list of books from an external data source.
+    /// </summary>
+    /// <param name="query"></param>
+    /// <returns></returns>
+    [HttpGet("external")]
+    public async Task<IActionResult> GetBooksFromExternalDataSource([FromQuery] string query)
+    {
+        var getBooksFromExternalSourceQuery = new GetBooksFromExternalSourceQuery(query);
+        var result = await _mediator.Send(getBooksFromExternalSourceQuery);
+        return Ok(result);
+    }
+    
 }

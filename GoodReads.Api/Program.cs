@@ -14,6 +14,7 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddMediator();
         builder.Services.AddPersistence();
+        builder.Services.AddExternalBookSource();
         var app = builder.Build();
         app.MapControllers();
         app.Run();

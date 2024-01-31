@@ -1,21 +1,17 @@
-﻿namespace GoodReads.Application.ViewModel;
+﻿using GoodReads.Core.Entities;
+
+namespace GoodReads.Application.ViewModel;
 
 /// <summary>
-/// Represents a simple book view model.
+/// Represents a simple <see cref="Book"/> view model.
 /// </summary>
 public class BookSimpleViewModel
 {
-    public BookSimpleViewModel(int id, string title, string description, List<RatingSimpleViewModel> ratings, double averageRate)
+    public BookSimpleViewModel(string title, string publisher)
     {
-        Id = id;
         Title = title;
-        Description = description;
-        Ratings = ratings;
-        AverageRate = averageRate;
+        Publisher = publisher;
     }
-    public int Id { get; set; }
     public string Title { get; set; }
-    public string Description { get; set; }
-    public double AverageRate { get; set; }
-    public List<RatingSimpleViewModel> Ratings { get; set; }
+    public string Publisher { get; set; }
 }

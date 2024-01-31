@@ -6,4 +6,4 @@ namespace GoodReads.Application.Queries.Books.GetAll;
 /// <summary>
 /// Represents a command to retrieve all books.
 /// </summary>
-public class GetAllBooksQuery : IRequest<List<BookSimpleViewModel>>;
+public class GetAllBooksQuery : IRequest<List<BookViewModel>>;

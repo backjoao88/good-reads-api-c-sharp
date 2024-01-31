@@ -1,0 +1,10 @@
+﻿PUT http://localhost:5218/api/books/1/cover/upload HTTP/1.1
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="cover"; filename="cover.jpg"
+
+< C:\Users\back\Desktop\carl-sagan-cover.jpg
+
+--boundary--
+

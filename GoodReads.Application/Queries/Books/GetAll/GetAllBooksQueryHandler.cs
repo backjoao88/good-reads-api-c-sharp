@@ -7,7 +7,7 @@ namespace GoodReads.Application.Queries.Books.GetAll;
 /// <summary>
 /// Represents the <see cref="GetAllBooksQuery"/> handler.
 /// </summary>
-public class GetAllBooksQueryHandler : IRequestHandler<GetAllBooksQuery, List<BookSimpleViewModel>>
+public class GetAllBooksQueryHandler : IRequestHandler<GetAllBooksQuery, List<BookViewModel>>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -16,12 +16,12 @@ public class GetAllBooksQueryHandler : IRequestHandler<GetAllBooksQuery, List<Bo
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<List<BookSimpleViewModel>> Handle(GetAllBooksQuery request, CancellationToken cancellationToken)
+    public async Task<List<BookViewModel>> Handle(GetAllBooksQuery request, CancellationToken cancellationToken)
     {
         var books = await _unitOfWork.BookRepository.GetAllAsync();
         var booksSimpleViewModel = books.Select(
             o => 
-                new BookSimpleViewModel(
+                new BookViewModel(
                     o.Id, 
                     o.Title, 
                     o.Description, 
