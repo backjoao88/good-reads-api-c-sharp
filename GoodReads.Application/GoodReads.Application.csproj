@@ -12,7 +12,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\GoodReads.Core\GoodReads.Core.csproj" />
-      <ProjectReference Include="..\GoodReads.Infrastructure\GoodReads.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

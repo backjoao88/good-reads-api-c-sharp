@@ -7,10 +7,14 @@ using GoodReads.Application.Queries.Books.GetAll;
 using GoodReads.Application.Queries.Books.GetBooksFromExternalSource;
 using GoodReads.Application.Queries.Books.GetBooksGenreReadByYear;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoodReads.Api.Controllers;
 
+/// <summary>
+/// Handles books requests.
+/// </summary>
 [ApiController]
 [Route("/api/books")]
 public class BookController : ApiController
@@ -108,11 +112,14 @@ public class BookController : ApiController
     /// Represents the endpoint for retrieving a list of books from an external data source.
     /// </summary>
     /// <param name="query"></param>
+    /// <param name="offset"></param>
+    /// <param name="limit"></param>
     /// <returns></returns>
+    [Authorize]
     [HttpGet("external")]
-    public async Task<IActionResult> GetBooksFromExternalDataSource([FromQuery] string query)
+    public async Task<IActionResult> GetBooksFromExternalDataSource([FromQuery] string query, [FromQuery] int offset, [FromQuery] int limit)
     {
-        var getBooksFromExternalSourceQuery = new GetBooksFromExternalSourceQuery(query);
+        var getBooksFromExternalSourceQuery = new GetBooksFromExternalSourceQuery(query, offset, limit);
         var result = await _mediator.Send(getBooksFromExternalSourceQuery);
         return Ok(result);
     }

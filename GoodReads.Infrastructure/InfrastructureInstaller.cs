@@ -1,11 +1,14 @@
-﻿using GoodReads.Core.Contracts;
+﻿using GoodReads.Application.Abstractions.BookSource;
+using GoodReads.Core.Contracts;
 using GoodReads.Core.Repositories;
-using GoodReads.Infrastructure.ExternalBookSource.Clients;
-using GoodReads.Infrastructure.ExternalBookSource.Configurations;
-using GoodReads.Infrastructure.ExternalBookSource.Contracts;
-using GoodReads.Infrastructure.ExternalBookSource.Implementations;
+using GoodReads.Infrastructure.Authentication.Configurations;
+using GoodReads.Infrastructure.BookSource.Clients;
+using GoodReads.Infrastructure.BookSource.Configurations;
+using GoodReads.Infrastructure.BookSource.Contracts;
 using GoodReads.Infrastructure.Persistence.Ef;
+using GoodReads.Infrastructure.Persistence.Ef.Configurations;
 using GoodReads.Infrastructure.Persistence.Ef.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
@@ -23,9 +26,15 @@ public static class InfrastructureInstaller
     /// <returns></returns>
     public static IServiceCollection AddPersistence(this IServiceCollection services)
     {
-        services.AddDbContext<EfDbContext>();
-        services.AddScoped<IUnitOfWork, EfUnitOfWork>();
-        services.AddScoped<IBookRepository, BookRepository>();
+        services
+            .ConfigureOptions<DbConnectionOptionsSetup>()
+            .AddDbContext<EfDbContext>(((provider, builder) =>
+            {
+                var options = provider.GetService<IOptions<DbConnectionOptions>>()!.Value;
+                builder.UseSqlServer(options.ConnectionString);
+            }))
+            .AddScoped<IUnitOfWork, EfUnitOfWork>()
+            .AddScoped<IBookRepository, BookRepository>();
         return services;
     }
 
@@ -38,12 +47,20 @@ public static class InfrastructureInstaller
     {
         services
             .ConfigureOptions<BookSourceClientOptionsSetup>()
-            .AddTransient<IBookSource, BookSource>()
+            .AddTransient<IBookSource, BookSource.BookSource>()
             .AddHttpClient<IBookSourceClient, GoogleBookClient>(((provider, client) =>
             {
                 var options = provider.GetService<IOptions<BookSourceClientOptions>>()!.Value;
                 client.BaseAddress = new Uri(options.BaseUrl);
             }));
+        return services;
+    }
+
+    public static IServiceCollection AddJwt(this IServiceCollection services)
+    {
+        services
+            .ConfigureOptions<JwtOptionsSetup>()
+            .ConfigureOptions<JwtBearerOptionsSetup>();
         return services;
     }
 }

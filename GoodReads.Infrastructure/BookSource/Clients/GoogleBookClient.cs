@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
-using GoodReads.Infrastructure.ExternalBookSource.Contracts;
-using GoodReads.Infrastructure.ExternalBookSource.Dtos;
+using GoodReads.Application.Abstractions.BookSource;
+using GoodReads.Infrastructure.BookSource.Contracts;
 
-namespace GoodReads.Infrastructure.ExternalBookSource.Clients;
+namespace GoodReads.Infrastructure.BookSource.Clients;
 
 /// <summary>
 /// Represents a implementation of the Google Books API client.
@@ -20,17 +20,23 @@ public class GoogleBookClient : IBookSourceClient
     /// Get method to retrieve data from a specific resource.
     /// </summary>
     /// <param name="query"></param>
+    /// <param name="offset"></param>
+    /// <param name="limit"></param>
     /// <returns></returns>
-    public async Task<HttpResponseMessage> GetAsync(string query)
+    public async Task<HttpResponseMessage> GetAsync(string query, int offset, int limit)
     {
-        const string REQUIRED_RESOURCE = "volumes";
+        const string requiredResource = "volumes";
+        string offsetStr = Convert.ToString(offset);
+        string limitStr = Convert.ToString(limit);
         var queryParams = new Dictionary<string, string>()
         {
-            {"q", query }
+            {"q", query },
+            {"startIndex", offsetStr},
+            {"maxResults", limitStr}
         };
         var queryParamsFormUrlEncoded = new FormUrlEncodedContent(queryParams);
         var queryParamsString = await queryParamsFormUrlEncoded.ReadAsStringAsync();
-        string requestUrl = $"{REQUIRED_RESOURCE}?{queryParamsString}";
+        string requestUrl = $"{requiredResource}?{queryParamsString}";
         return await _client.GetAsync(requestUrl);  
     }
 
@@ -38,9 +44,9 @@ public class GoogleBookClient : IBookSourceClient
     /// Serializes a json string content based on a string response.
     /// </summary>
     /// <param name="content"></param>
-    /// <returns>A list of <see cref="BookSourceDto"/></returns>
+    /// <returns>A list of <see cref="BookSourceRequest"/></returns>
     /// <exception cref="ArgumentException"></exception>
-    public async Task<List<BookSourceDto>> SerializeAsync(string content)
+    public async Task<List<BookSourceRequest>> SerializeAsync(string content)
     {
         if (!content.Any())
         {
@@ -65,7 +71,7 @@ public class GoogleBookClient : IBookSourceClient
         var items = root.TryGetProperty("items", out var tmpItems)
             ? tmpItems.EnumerateArray()
             : new JsonElement.ArrayEnumerator();
-        var bookSourceDtos = new List<BookSourceDto>();
+        var bookSourceDtos = new List<BookSourceRequest>();
         if (items.Count() > 0)
         {
             bookSourceDtos = items
@@ -75,7 +81,7 @@ public class GoogleBookClient : IBookSourceClient
                     Title = item.TryGetProperty("title", out var nameProperty) ? nameProperty.GetString() : "",
                     Publisher = item.TryGetProperty("publisher", out var publisherProperty) ? publisherProperty.GetString() : "",
                 })
-                .Select(item => new BookSourceDto(item.Title, item.Publisher))
+                .Select(item => new BookSourceRequest(item.Title, item.Publisher))
                 .ToList();        
         }
         return await Task.FromResult(bookSourceDtos);

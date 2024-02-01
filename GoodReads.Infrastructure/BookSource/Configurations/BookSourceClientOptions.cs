@@ -1,6 +1,6 @@
-﻿using GoodReads.Infrastructure.ExternalBookSource.Contracts;
+﻿using GoodReads.Application.Abstractions.BookSource;
 
-namespace GoodReads.Infrastructure.ExternalBookSource.Configurations;
+namespace GoodReads.Infrastructure.BookSource.Configurations;
 
 /// <summary>
 /// Represents a set of configurations to <see cref="IBookSource"/> 

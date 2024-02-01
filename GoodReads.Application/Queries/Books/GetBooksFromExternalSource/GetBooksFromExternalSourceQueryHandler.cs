@@ -1,5 +1,5 @@
-﻿using GoodReads.Application.ViewModel;
-using GoodReads.Infrastructure.ExternalBookSource.Contracts;
+﻿using GoodReads.Application.Abstractions.BookSource;
+using GoodReads.Application.ViewModel;
 using MediatR;
 
 namespace GoodReads.Application.Queries.Books.GetBooksFromExternalSource;
@@ -18,7 +18,7 @@ public class GetBooksFromExternalSourceQueryHandler : IRequestHandler<GetBooksFr
 
     public async Task<List<BookSimpleViewModel>> Handle(GetBooksFromExternalSourceQuery request, CancellationToken cancellationToken)
     {
-        var bookSourceDtos = await _bookSource.GetBooks(request.Query);
+        var bookSourceDtos = await _bookSource.GetBooks(request.Query, request.Offset, request.Limit);
         var bookSimpleViewModels = bookSourceDtos
             .Select(o => new BookSimpleViewModel(o.Title ?? "", o.Publisher ?? ""))
             .ToList();

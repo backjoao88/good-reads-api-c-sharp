@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
-namespace GoodReads.Infrastructure.ExternalBookSource.Configurations;
+namespace GoodReads.Infrastructure.BookSource.Configurations;
 
 /// <summary>
 /// Sets up a <see cref="BookSourceClientOptions"/>

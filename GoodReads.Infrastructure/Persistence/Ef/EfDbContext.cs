@@ -1,5 +1,6 @@
 ﻿using GoodReads.Core.Entities;
 using GoodReads.Infrastructure.Persistence.Ef.Configurations;
+using GoodReads.Infrastructure.Persistence.Ef.Configurations.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace GoodReads.Infrastructure.Persistence.Ef;
@@ -12,14 +13,24 @@ public class EfDbContext : DbContext
     public DbSet<Book> Books { get; set; } = null!;
     public DbSet<Rating> Ratings { get; set; } = null!;
 
+    /// <summary>
+    /// Required by EFCore.
+    /// </summary>
+    protected EfDbContext()
+    {
+    }
+
+    /// <summary>
+    /// Sets up a db context with options.
+    /// </summary>
+    /// <param name="options"></param>
+    public EfDbContext(DbContextOptions options) : base(options)
+    {
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new BookConfiguration());
         modelBuilder.ApplyConfiguration(new RatingConfiguration());
-    }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer("Server=DESKTOP-N7P7NAN\\SQLEXPRESS01;User=sa;Database=goodreadsdb;Password=joao#123;TrustServerCertificate=true;");
     }
 }

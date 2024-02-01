@@ -3,7 +3,7 @@ using GoodReads.Infrastructure.Persistence.Ef.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace GoodReads.Infrastructure.Persistence.Ef.Configurations;
+namespace GoodReads.Infrastructure.Persistence.Ef.Configurations.Entities;
 
 /// <summary>
 /// Represents a <see cref="Rating"/> configuration.
