@@ -33,5 +33,6 @@ public class EfDbContext : DbContext
     {
         modelBuilder.ApplyConfiguration(new BookConfiguration());
         modelBuilder.ApplyConfiguration(new RatingConfiguration());
+        modelBuilder.ApplyConfiguration(new UserConfiguration());
     }
 }

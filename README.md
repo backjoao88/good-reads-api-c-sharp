@@ -42,6 +42,7 @@ Ele deve permitir o cadastro validado de livros, avaliações e usuário.
 - [x] ISBN deve ser único ao cadastrar livro;
 - [x] Nota deve ser de 1 a 5 ao cadastrar avaliação;
 - [x] A nota média do livro deve ser recalculada a cada cadastro de avaliação;
+- [ ] O usuário pode cadastrar apenas uma avaliação por livro;
 - [x] O sistema deve gerar um relatório sobre a quantidade de livros lidos naquele ano (+);
 - [x] O sistema deve permitir o usuário subir um arquivo com a capa do livro (+);
     - [x] Salvar em memória
@@ -50,13 +51,17 @@ Ele deve permitir o cadastro validado de livros, avaliações e usuário.
 - [x] O sistema deve permitir consulta de livros em uma fonte externa (+);
     - [x] Configurar por meio de uma classe de opções;
     - [x] Criar o client com base no Google APIs;
-- [ ] O sistema deve realizar a autenticação e autorização do usuário (+);
+- [x] O sistema deve realizar a autenticação e autorização do usuário (+);
+  - [ ] Pedir autorização na camada de consulta externa;
+  - [ ] Cadastrar avaliações de livros (reader ou admin);
+  - [ ] Cadastrar um livro (apenas admin);
 
 ### Conceitos aplicados
 
 - [ ] Utilizar documentação com o Swagger;
+- [ ] Utilizar validação com o FluentValidation na camada de aplicação;
 - [x] Utilizar camadas da arquitetura limpa;
 - [x] Utilizar ORM EfCore com SQL Server nas entidades; 
-- [ ] Utilizar o padrão CQRS no projeto de acordo com as regras de negócio;
-- [ ] Utilizar o padrão Repository nas entidades do projeto;
-- [ ] Utilizar o padrão de resultados na camada de domínio;
+- [x] Utilizar o padrão CQRS no projeto de acordo com as regras de negócio;
+- [x] Utilizar o padrão Repository nas entidades do projeto;
+- [x] Utilizar o padrão de resultados na camada de domínio;
