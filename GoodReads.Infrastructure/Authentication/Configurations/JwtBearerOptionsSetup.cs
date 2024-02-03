@@ -5,27 +5,31 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace GoodReads.Infrastructure.Authentication.Configurations;
 
-public class JwtBearerOptionsSetup : IConfigureOptions<JwtBearerOptions>
+public class JwtBearerOptionsSetup : IConfigureNamedOptions<JwtBearerOptions>
 {
-
-    private readonly IOptions<JwtOptions> _jwtOptions;
+    private readonly JwtOptions _jwtOptions;
 
     public JwtBearerOptionsSetup(IOptions<JwtOptions> jwtOptions)
     {
-        _jwtOptions = jwtOptions;
+        _jwtOptions = jwtOptions.Value;
     }
 
     public void Configure(JwtBearerOptions options)
     {
         options.TokenValidationParameters = new()
         {
-            ValidIssuer = _jwtOptions.Value.Issuer,
-            ValidAudience = _jwtOptions.Value.Audience,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Value.Key)),
-            ValidateIssuer = false,
-            ValidateAudience = false,
+            ValidateIssuer = true,
+            ValidateAudience = true,
             ValidateLifetime = false,
             ValidateIssuerSigningKey = true,
+            ValidIssuer = _jwtOptions.Issuer,
+            ValidAudience = _jwtOptions.Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Key)),
         };
+    }
+
+    public void Configure(string? name, JwtBearerOptions options)
+    {
+        Configure(options);
     }
 }

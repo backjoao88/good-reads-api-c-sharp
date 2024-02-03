@@ -8,15 +8,17 @@ namespace GoodReads.Infrastructure.Persistence.Ef;
 /// </summary>
 public class EfUnitOfWork : IUnitOfWork
 {
-    public EfUnitOfWork(IBookRepository bookRepository, EfDbContext dbContext)
+    public EfUnitOfWork(IBookRepository bookRepository, IUserRepository userRepository, EfDbContext dbContext)
     {
         BookRepository = bookRepository;
+        UserRepository = userRepository;
         _dbContext = dbContext;
     }
 
     private readonly EfDbContext _dbContext;
     public IBookRepository BookRepository { get; set; }
-    
+    public IUserRepository UserRepository { get; set; }
+
     /// <summary>
     /// Commit all changes made to the database. 
     /// </summary>

@@ -1,7 +1,6 @@
 using GoodReads.Application;
 using GoodReads.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Server.HttpSys;
 
 namespace GoodReads.Api;
 
@@ -17,11 +16,14 @@ public class Program
         builder.Services.AddMediator();
         builder.Services.AddPersistence();
         builder.Services.AddExternalBookSource();
-        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        builder.Services.AddJwt();
+        builder.Services
+            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer();
         builder.Services.AddAuthorization();
-        builder.Services.AddJwt();
         var app = builder.Build();
+        app.UseAuthentication();
+        app.UseAuthorization();
         app.MapControllers();
         app.Run();
     }

@@ -1,6 +1,8 @@
-﻿using GoodReads.Application.Abstractions.BookSource;
+﻿using GoodReads.Application.Abstractions.Authentication;
+using GoodReads.Application.Abstractions.BookSource;
 using GoodReads.Core.Contracts;
 using GoodReads.Core.Repositories;
+using GoodReads.Infrastructure.Authentication;
 using GoodReads.Infrastructure.Authentication.Configurations;
 using GoodReads.Infrastructure.BookSource.Clients;
 using GoodReads.Infrastructure.BookSource.Configurations;
@@ -34,7 +36,8 @@ public static class InfrastructureInstaller
                 builder.UseSqlServer(options.ConnectionString);
             }))
             .AddScoped<IUnitOfWork, EfUnitOfWork>()
-            .AddScoped<IBookRepository, BookRepository>();
+            .AddScoped<IBookRepository, BookRepository>()
+            .AddScoped<IUserRepository, UserRepository>();
         return services;
     }
 
@@ -60,7 +63,8 @@ public static class InfrastructureInstaller
     {
         services
             .ConfigureOptions<JwtOptionsSetup>()
-            .ConfigureOptions<JwtBearerOptionsSetup>();
+            .ConfigureOptions<JwtBearerOptionsSetup>()
+            .AddScoped<IJwtService, JwtService>();
         return services;
     }
 }

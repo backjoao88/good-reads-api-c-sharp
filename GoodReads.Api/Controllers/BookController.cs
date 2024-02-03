@@ -115,8 +115,8 @@ public class BookController : ApiController
     /// <param name="offset"></param>
     /// <param name="limit"></param>
     /// <returns></returns>
-    [Authorize]
     [HttpGet("external")]
+    [Authorize]
     public async Task<IActionResult> GetBooksFromExternalDataSource([FromQuery] string query, [FromQuery] int offset, [FromQuery] int limit)
     {
         var getBooksFromExternalSourceQuery = new GetBooksFromExternalSourceQuery(query, offset, limit);

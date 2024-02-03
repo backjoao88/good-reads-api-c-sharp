@@ -12,7 +12,8 @@ public class EfDbContext : DbContext
 {
     public DbSet<Book> Books { get; set; } = null!;
     public DbSet<Rating> Ratings { get; set; } = null!;
-
+    public DbSet<User> Users { get; set; } = null!;
+    
     /// <summary>
     /// Required by EFCore.
     /// </summary>

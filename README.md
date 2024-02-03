@@ -47,9 +47,9 @@ Ele deve permitir o cadastro validado de livros, avaliações e usuário.
     - [x] Salvar em memória
 - [x] O sistema deve permitir o usuário baixar um arquivo com a capa do livro (+);
     - [x] Baixar da memória
-- [ ] O sistema deve permitir consulta de livros em uma fonte externa (+);
-    - [ ] Configurar por meio de uma classe de opções;
-    - [ ] Criar o client com base no Google APIs;
+- [x] O sistema deve permitir consulta de livros em uma fonte externa (+);
+    - [x] Configurar por meio de uma classe de opções;
+    - [x] Criar o client com base no Google APIs;
 - [ ] O sistema deve realizar a autenticação e autorização do usuário (+);
 
 ### Conceitos aplicados

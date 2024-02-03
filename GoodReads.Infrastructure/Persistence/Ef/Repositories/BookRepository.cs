@@ -16,54 +16,37 @@ public class BookRepository : IBookRepository
         _dbContext = dbContext;
     }
     
-    /// <summary>
-    /// Save a new book.
-    /// </summary>
-    /// <param name="entity"></param>
+    /// <inheritdoc />
     public async Task Save(Book entity)
     {
         await _dbContext.Books.AddAsync(entity);
     }
     
-    /// <summary>
-    /// Retrieve all books saved.
-    /// </summary>
-    /// <returns>A list of books</returns>
+    /// <inheritdoc />
     public async Task<List<Book>> GetAllAsync()
     {
         return await _dbContext.Books.Include(o => o.Ratings).ToListAsync();
     }
 
+    /// <inheritdoc />
     public List<Book> GetAll()
     {
         return _dbContext.Books.Include(o => o.Ratings).ToList();
     }
 
-    /// <summary>
-    /// Retrieve the requested book.
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns>A book entity</returns>
+    /// <inheritdoc />
     public async Task<Book?> GetById(int id)
     {
         return await _dbContext.Books.Include(o => o.Ratings).SingleOrDefaultAsync(o => o.Id == id);
     }
 
-    /// <summary>
-    /// Save a new rating.
-    /// </summary>
-    /// <param name="entity"></param>
+    /// <inheritdoc />
     public async Task SaveRating(Rating entity)
     {
         await _dbContext.Ratings.AddAsync(entity);
     }
 
-    /// <summary>
-    /// Checks if the ISBN required is unique in this repository.
-    /// </summary>
-    /// <param name="isbn"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
+    /// <inheritdoc />
     public async Task<bool> IsIsbnUnique(string isbn)
     {
         return !await _dbContext.Books.AnyAsync(o => o.Isbn == isbn);

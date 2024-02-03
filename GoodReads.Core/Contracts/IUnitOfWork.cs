@@ -8,5 +8,6 @@ namespace GoodReads.Core.Contracts;
 public interface IUnitOfWork
 {
     public IBookRepository BookRepository { get; set; }
+    public IUserRepository UserRepository { get; set; }
     public Task<int> Complete();
 }

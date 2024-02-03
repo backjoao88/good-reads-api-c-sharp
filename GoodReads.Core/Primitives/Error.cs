@@ -30,4 +30,12 @@ public static class DomainErrors
         public static Error BookNotFoundError => new("Book.NotFoundError", "The book was not found.");
         public static Error BookCoverEmptyError => new("BookCover.EmptyError", "The book cover is empty.");
     }
+
+    public static class User
+    {
+        public static Error UserEmailAlreadyTaken =
+            new("User.EmailAlreadyTaken", "This e-mail is already taken by another user.");
+        public static Error UserInvalidEmailOrPassword =
+            new("User.InvalidEmailOrPassword", "The e-mail or password is invalid.");
+    }
 }

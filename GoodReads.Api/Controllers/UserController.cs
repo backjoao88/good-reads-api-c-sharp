@@ -1,5 +1,6 @@
 ﻿using GoodReads.Api.Abstractions;
 using GoodReads.Application.Commands.Users.Create;
+using GoodReads.Application.Commands.Users.Login;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,19 @@ public class UserController : ApiController
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] CreateUserCommand createUserCommand)
     {
-        return await Task.FromResult(Ok());
+        var result = await _mediator.Send(createUserCommand);
+        return result.IsSuccess ? Created() : BadRequest(result.Error);
+    }
+
+    /// <summary>
+    /// Endpoint used to login into the system.
+    /// </summary>
+    /// <param name="loginUserCommand"></param>
+    /// <returns></returns>
+    [HttpPut("login")]
+    public async Task<IActionResult> Put([FromBody] LoginUserCommand loginUserCommand)
+    {
+        var resultLoginViewModel = await _mediator.Send(loginUserCommand);
+        return resultLoginViewModel.IsSuccess ? Ok(resultLoginViewModel.Data) : BadRequest(resultLoginViewModel.Error);
     }
 }

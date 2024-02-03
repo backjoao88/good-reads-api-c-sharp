@@ -8,6 +8,17 @@ namespace GoodReads.Core.Repositories;
 /// </summary>
 public interface IBookRepository : IRepository<Book>
 {
+    /// <summary>
+    /// Save a rating.
+    /// </summary>
+    /// <param name="rating"></param>
+    /// <returns></returns>
     public Task SaveRating(Rating rating);
+    
+    /// <summary>
+    /// Checks if ISBN is unique.
+    /// </summary>
+    /// <param name="isbn"></param>
+    /// <returns></returns>
     public Task<bool> IsIsbnUnique(string isbn);
 }

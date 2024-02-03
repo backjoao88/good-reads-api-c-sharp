@@ -1,0 +1,10 @@
+﻿# Creates a new user
+POST http://localhost:5218/api/users
+Content-Type: application/json
+
+{
+  "firstName": "João",
+  "lastName": "Paulo",
+  "email": "joaoback@mail.com",
+  "password": "123"
+}
