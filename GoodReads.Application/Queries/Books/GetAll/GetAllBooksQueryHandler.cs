@@ -25,7 +25,7 @@ public class GetAllBooksQueryHandler : IRequestHandler<GetAllBooksQuery, List<Bo
                     o.Id, 
                     o.Title, 
                     o.Description, 
-                    o.Ratings.Select(r => new RatingSimpleViewModel(r.Rate, r.Description)).ToList(),
+                    o.Ratings.Select(r => new RatingSimpleViewModel(r.Rate, r.Description, r.IdUser)).ToList(),
                     o.AverageRate
                 )
         ).ToList();

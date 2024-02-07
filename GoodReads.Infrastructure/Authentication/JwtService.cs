@@ -27,14 +27,14 @@ public class JwtService : IJwtService
         var audience = _jwtOptions.Audience;
         var issuer = _jwtOptions.Issuer;
         var privateKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Key));
-        var signingCredentials = new SigningCredentials(privateKey, SecurityAlgorithms.HmacSha256);
+        var signingCredentials = new SigningCredentials(privateKey, SecurityAlgorithms.HmacSha512);
         var jwtHeader = new JwtHeader(signingCredentials);
         var claims = new List<Claim>()
         {
-            new("userId", Convert.ToString(userId)),
-            new("role", role ?? string.Empty),
+            new(JwtClaimTypes.Subject, Convert.ToString(userId)),
+            new(ClaimTypes.Role, role),
         };
-        var jwtPayload = new JwtPayload(issuer, audience, claims, new DateTime(), new DateTime().AddMinutes(5));
+        var jwtPayload = new JwtPayload(issuer, audience, claims, new DateTime(), new DateTime().AddMinutes(240));
         var jwtSecurityToken = new JwtSecurityToken(jwtHeader, jwtPayload);
         return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
     }
@@ -42,7 +42,7 @@ public class JwtService : IJwtService
     /// <inheritdoc/>
     public string Encrypt(string input)
     {
-        var crypt = SHA256.Create();
+        var crypt = SHA512.Create();
         var encryptedBytes = crypt.ComputeHash(Encoding.UTF8.GetBytes(input));
         StringBuilder stringBuilder = new StringBuilder();
         foreach(var chunk in encryptedBytes)

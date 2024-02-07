@@ -8,12 +8,13 @@ namespace GoodReads.Core.Entities;
 /// </summary>
 public class User : Entity
 {
-    public User(string firstName, string lastName, string email, string password)
+    public User(string firstName, string lastName, string email, string password, ERole role)
     {
         FirstName = firstName;
         LastName = lastName;
         Email = email;
         Password = password;
+        Role = role;
     }
     public string FirstName { get; set; }
     public string LastName { get; set; }

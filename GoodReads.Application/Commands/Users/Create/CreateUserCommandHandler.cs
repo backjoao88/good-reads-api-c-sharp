@@ -28,7 +28,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Resul
             return Result.Fail(DomainErrors.User.UserEmailAlreadyTaken);
         }
         var passwordHashed = _jwtService.Encrypt(request.Password);
-        var user = new User(request.FirstName, request.LastName, request.Email, passwordHashed);
+        var user = new User(request.FirstName, request.LastName, request.Email, passwordHashed, request.Role);
         await _unitOfWork.UserRepository.Save(user);
         await _unitOfWork.Complete();
         return Result.Ok();

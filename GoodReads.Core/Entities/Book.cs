@@ -59,6 +59,10 @@ public class Book : Entity
     /// </summary>
     public void RecalculateRate()
     {
+        if (!Ratings.Any())
+        {
+            return;
+        }
         AverageRate = Ratings.Average(o => o.Rate);
     }
 }

@@ -52,14 +52,13 @@ Ele deve permitir o cadastro validado de livros, avaliações e usuário.
     - [x] Configurar por meio de uma classe de opções;
     - [x] Criar o client com base no Google APIs;
 - [x] O sistema deve realizar a autenticação e autorização do usuário (+);
-  - [ ] Pedir autorização na camada de consulta externa;
-  - [ ] Cadastrar avaliações de livros (reader ou admin);
-  - [ ] Cadastrar um livro (apenas admin);
-
+  - [x] Pedir autorização na camada de consulta externa;
+  - [x] Criar uma rotina de autorização baseada em permissões;
+  
 ### Conceitos aplicados
 
 - [ ] Utilizar documentação com o Swagger;
-- [ ] Utilizar validação com o FluentValidation na camada de aplicação;
+- [x] Utilizar validação com o FluentValidation na camada de aplicação;
 - [x] Utilizar camadas da arquitetura limpa;
 - [x] Utilizar ORM EfCore com SQL Server nas entidades; 
 - [x] Utilizar o padrão CQRS no projeto de acordo com as regras de negócio;

@@ -5,6 +5,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace GoodReads.Infrastructure.Authentication.Configurations;
 
+/// <summary>
+/// Configures a JWT bearer token validator.
+/// </summary>
 public class JwtBearerOptionsSetup : IConfigureNamedOptions<JwtBearerOptions>
 {
     private readonly JwtOptions _jwtOptions;
@@ -16,6 +19,7 @@ public class JwtBearerOptionsSetup : IConfigureNamedOptions<JwtBearerOptions>
 
     public void Configure(JwtBearerOptions options)
     {
+        options.MapInboundClaims = false;
         options.TokenValidationParameters = new()
         {
             ValidateIssuer = true,

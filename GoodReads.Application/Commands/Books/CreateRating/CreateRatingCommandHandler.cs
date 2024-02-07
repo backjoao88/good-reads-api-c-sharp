@@ -25,7 +25,7 @@ public class CreateRatingCommandHandler : IRequestHandler<CreateRatingCommand, R
         {
             return Result.Fail(DomainErrors.Book.BookNotFoundError);
         }
-        var rating = new Rating(request.Description, request.Rate, request.IdBook);
+        var rating = new Rating(request.Description, request.Rate, request.IdBook, request.IdUser);
         var resultCorrectRange = rating.IsInCorrectRange();
         if (resultCorrectRange.IsFailure)
         {

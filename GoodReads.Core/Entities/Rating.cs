@@ -8,14 +8,22 @@ namespace GoodReads.Core.Entities;
 /// </summary>
 public class Rating : Entity
 {
-    public Rating(string description, int rate, int idBook)
+    public Rating(string description, int rate, int idBook, int idUser)
     {
         Rate = rate;
         Description = description;
         IdBook = idBook;
+        IdUser = idUser;
         Registration = DateTime.Now;
     }
-
+    
+    public int Rate { get; set; }
+    public string Description { get; private set; }
+    public int IdBook { get; private set; }
+    public int IdUser { get; private set; }
+    public User User { get; private set; } = null!;
+    public DateTime Registration { get; private set; }
+    
     /// <summary>
     /// Checks if the current rate is within the correct range.
     /// </summary>
@@ -30,8 +38,5 @@ public class Rating : Entity
         }
         return Result.Ok();
     }
-    public int Rate { get; set; }
-    public string Description { get; private set; }
-    public int IdBook { get; private set; }
-    public DateTime Registration { get; private set; }
+    
 }

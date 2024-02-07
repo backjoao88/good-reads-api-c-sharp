@@ -5,6 +5,6 @@
 /// </summary>
 public enum ERole
 {
-    Admin,
-    Reader
+    Admin = 1,
+    Reader = 2
 }

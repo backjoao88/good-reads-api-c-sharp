@@ -30,7 +30,7 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, Result<
         {
             return Result.Fail<LoginViewModel>(DomainErrors.User.UserInvalidEmailOrPassword);
         }
-        var roleStr = Enum.GetName(typeof(ERole), user.Role);
+        var roleStr = Enum.GetName(typeof(ERole), user.Role)?.ToLower();
         var jwt = _jwtService.Generate(user.Id, roleStr ?? "");
         var loginViewModel = new LoginViewModel(Convert.ToString(user.Id), jwt);
         return Result.Ok(loginViewModel);

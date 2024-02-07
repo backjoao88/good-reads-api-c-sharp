@@ -1,10 +1,12 @@
 ﻿# Creates a new user
 POST http://localhost:5218/api/users
+Authorization: Bearer 123
 Content-Type: application/json
 
 {
-  "firstName": "João",
-  "lastName": "Paulo",
-  "email": "joaoback@mail.com",
-  "password": "123"
+  "firstName": "Michael",
+  "lastName": "Scott",
+  "email": "scott@mail.com",
+  "password": "123",
+  "role": 2
 }

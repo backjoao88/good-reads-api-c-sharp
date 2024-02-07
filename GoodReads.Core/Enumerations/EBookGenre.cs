@@ -7,5 +7,5 @@ public enum EBookGenre
 {
     Science,
     Fiction,
-    Suspense,
+    Classic,
 }

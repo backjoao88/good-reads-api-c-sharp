@@ -26,6 +26,7 @@ public class GetBooksGenreReadByYearQueryHandler : IRequestHandler<GetBooksGenre
         var allRatings = allBooks
             .SelectMany(o => o.Ratings);
         var allBooksWithRatingsInRequiredYearTasks = allRatings
+            .Where(o => o.IdUser == request.IdUser)
             .Where(o => o.Registration.Year == reportYear)
             .Select(async o => await _unitOfWork.BookRepository.GetById(o.IdBook));
 

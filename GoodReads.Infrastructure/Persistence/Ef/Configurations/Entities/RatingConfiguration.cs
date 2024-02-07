@@ -18,6 +18,8 @@ public class RatingConfiguration : EntityBaseConfiguration<Rating>
     {
         base.Configure(builder);
         builder.ToTable("tbl_Rating");
+        builder.HasOne(o => o.User).WithMany().HasForeignKey(o => o.IdUser).OnDelete(DeleteBehavior.Restrict)
+            .IsRequired();
         builder.Property(o => o.Description).HasMaxLength(250);
     }   
 }

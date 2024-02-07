@@ -3,7 +3,8 @@ POST http://localhost:5218/api/books
 Content-Type: application/json
 
 {
-  "title": "O mundo assombrado pelos demônios",
-  "description": "Assombrado com as explicações pseudocientíficas e místicas que ocupam cada vez mais os espaços dos meios de comunicação.",
-  "isbn": "853590834V"
+  "title": "O homem eterno.",
+  "description": "O homem eterno é a resposta a uma obra de H. G. Wells sobre a origem do mundo. Chesterton ilustra de forma ambiciosa a jornada espiritual da humanidade, principalmente da civilização ocidental.",
+  "isbn": "65555216862",
+  "genre": 1
 }
